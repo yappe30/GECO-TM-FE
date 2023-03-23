@@ -1,0 +1,8 @@
+.TableRow:nth-of-type(even)
+{
+    background-color: white;
+}
+.TableRow:nth-of-type(odd)
+{
+    background-color: white;
+}

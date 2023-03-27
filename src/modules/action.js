@@ -39,10 +39,19 @@ export const onGetTimesheet = () => {
   }
 }
 
-export const onDeleteCourse = (id) => {
+export const onGEtEvent = () => {
   return (dispatch) => {
-      axios.delete(courseApi+"/DeleteCourse?id="+id).then((res) => {
-        dispatch(onGetCourse())
+      axios.get(gecoTMApi+"/GetUpcomingEvent").then((res) => {
+          dispatch(
+              ((data) => {
+                return {
+                  type: actions.GET_EVENT_DATA,
+                  payload: {
+                    httpResponse: data,
+                  },
+                };
+              })(res.data)
+            );
       }).catch((error) => {
           console.log(error);
       })

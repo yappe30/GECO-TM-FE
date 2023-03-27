@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { Typography } from '@mui/material';
 import './TimesheetDesign.css';
+import Card from '@mui/material/Card';
 
 const style = {
     position: 'absolute',
@@ -89,6 +90,7 @@ const Timesheet = () => {
     }
     return (
         <>
+         <Card sx={{padding:'10px', boxShadow: '0px 0px 10px 1px rgb(164, 144, 124)'}}>
             <h3>TIMESHEET DETAILS</h3>
             <br></br>
             <TextField
@@ -98,7 +100,7 @@ const Timesheet = () => {
                 label="Search"
             />
             <Paper sx={{ width: '100%', overflow: 'hidden', marginTop: '20px' }}>
-                <TableContainer sx={{ maxHeight: '100%' }}>
+                <TableContainer sx={{ maxHeight: '100%'}} className="table01">
                     <Table aria-label="customized table">
                         <TableHead sx={{ backgroundColor: 'rgb(164, 144, 124)' }}>
                             <TableRow >
@@ -131,8 +133,8 @@ const Timesheet = () => {
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
                                         return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.employee_id} className="TableRow">
-                                                <TableCell sx={{ color: 'rgb(77, 76, 125)' }}>
+                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.employee_id} className="TableRow" >
+                                                <TableCell>
                                                     {row.timesheet_id}
                                                 </TableCell>
                                                 <TableCell>
@@ -152,7 +154,7 @@ const Timesheet = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     <div className="dropdown dropstart">
-                                                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true">
+                                                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true" disabled={row.status == 'REJECT'? true: false}>
                                                             Option
                                                         </button>
                                                         <ul className="dropdown-menu">
@@ -202,6 +204,7 @@ const Timesheet = () => {
                     <Button id="SubmitButton" variant="contained" onClick={updateTimesheet} sx={{float: 'right', backgroundColor: 'rgb(87, 155, 177)'}}>Confirm</Button>
                 </Box>
             </Modal>
+            </Card>
         </>
     );
 };

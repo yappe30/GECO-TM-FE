@@ -8,14 +8,17 @@ import Timesheet from './modules/timesheet/containers/Timesheet'
 import Blog from './modules/blog/containers/Blog';
 import About from './modules/about/containers/About'
 import Faq from './modules/faq/containers/Faq';
+import Login from './modules/login/containers/Login'
+
 const Router = () => {
     return (
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<DashboardNavbar />}>
+                <Route path="/login" element={<Login />} />
+                    <Route element={<DashboardNavbar />}>
                         <Route path="/employee" element={<Employee />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/" element={<Timesheet />} />
                         <Route path="/event" element={<Event />} />
                         <Route path="/timesheet" element={<Timesheet />} />
                         <Route path="/about" element={<About />} />

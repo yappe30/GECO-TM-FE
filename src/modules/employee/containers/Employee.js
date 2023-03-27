@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { onGetEmployee } from '../../action';
 import { TextField } from '@mui/material';
 import './EmployeeTableDesign.css';
+import Card from '@mui/material/Card';
 
 const Employee = () => {
     const [page, setPage] = React.useState(0);
@@ -53,6 +54,7 @@ const Employee = () => {
 
     return (
         <>
+        <Card sx={{padding:'10px', boxShadow: '0px 0px 10px 1px rgb(164, 144, 124)'}}>
             <h3>EMPLOYEE DETAILS</h3>
             <br></br>
             <TextField
@@ -115,6 +117,7 @@ const Employee = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
+            </Card>
         </>
     );
 };

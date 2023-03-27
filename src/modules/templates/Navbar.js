@@ -130,8 +130,9 @@ export default function Navbar() {
         </DrawerHeader>
         <Divider />
         <List >
-          {['Dashboard', 'Employee', 'Timesheet', 'Event', 'Blog', 'Faq'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }} onClick={() => { navigate(`/${text.toLowerCase()}`) }}>
+          <h4 style={open? { textAlign: 'center'}: {display: 'none'}} >Dashboard</h4>
+          {['Timesheet', 'Employee', 'Event', 'Blog', 'Faq'].map((text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: 'block', }} onClick={() => { navigate(`/${text.toLowerCase()}`) }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -149,7 +150,7 @@ export default function Navbar() {
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} to={`/${text.toLowerCase()}`} />
-              </ListItemButton>
+              </ListItemButton> 
             </ListItem>
           ))}
         </List>

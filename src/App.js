@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Router from './Router';
+import { ToastContainer } from 'react-toastify';
 
 
 const App = () => {
+
   return (
-    <React.Fragment>
+    <div>
       {/* <Login /> */}
+      <ToastContainer />
       <Router />
-    </React.Fragment>
+
+    </div>
   );
 };
 

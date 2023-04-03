@@ -53,7 +53,7 @@ const Employee = () => {
     })
 
     return (
-        <>
+        <div style={{height: '100%'}}>
         <Card sx={{padding:'10px', boxShadow: '0px 0px 10px 1px rgb(164, 144, 124)'}}>
             <h3>EMPLOYEE DETAILS</h3>
             <br></br>
@@ -118,7 +118,7 @@ const Employee = () => {
                 />
             </Paper>
             </Card>
-        </>
+        </div>
     );
 };
 

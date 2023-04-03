@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        include: [path.resolve(__dirname, 'src')],
+        // include: [path.resolve(__dirname, 'src')],
         use: ['style-loader', 'css-loader'],
       },
       {
@@ -33,7 +33,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               query: {
-                name: 'src/assets/[name].[ext]',
+                name: 'src/images/[name].[ext]',
               },
             },
           },

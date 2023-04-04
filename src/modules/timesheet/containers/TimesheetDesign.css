@@ -7,3 +7,17 @@ a:active {
 .css-1ex1afd-MuiTableCell-root{
     color : rgb(77, 76, 125) !important;
 }
+#tableHeader{
+    background: rgb(130,14,14);
+    background: linear-gradient(90deg, rgba(130,14,14,1) 46%, rgba(3,3,3,1) 97%);
+   
+}
+th{
+    color: white !important;
+}
+#statusButton{
+    background-color: rgb(31, 31, 34) !important;
+}
+table{
+    font-family: 'Oswald', sans-seri;
+}

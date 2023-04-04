@@ -59,7 +59,7 @@ const Faq = () => {
         <br />
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>What is timesheet management</Typography>
+          <Typography>What is timesheet management?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -73,7 +73,7 @@ const Faq = () => {
       </Accordion>
       <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>How to Approve or Reject Timesheet</Typography>
+          <Typography>How to Approve or Reject Timesheet?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -81,9 +81,10 @@ const Faq = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
+
       <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>What the purpose of timesheet</Typography>
+          <Typography>What the purpose of timesheet?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -91,13 +92,36 @@ const Faq = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
+
+      <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
+        <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
+          <Typography>Why is a timesheet importan?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+          Timesheets are important for several reasons. They help employers to accurately calculate employee pay and ensure compliance with labor laws. They also provide a record of work done, which can be used for billing clients or analyzing productivity.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+
       <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
         <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-          <Typography>What the purpose of timesheet</Typography>
+          <Typography>What the purpose of timesheet?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
             The purpose of timesheet is to monitoring individual time in every project that the employee have and also to reject or approve employee timesheet if there are some any issues.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
+        <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
+          <Typography>What are some common methods for tracking time?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+          There are several methods for tracking time, including manual entry on paper or in a spreadsheet, using specialized software or apps, or clocking in and out using a time clock or biometric scanner.
           </Typography>
         </AccordionDetails>
       </Accordion>

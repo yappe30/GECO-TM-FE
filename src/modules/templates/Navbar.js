@@ -22,6 +22,12 @@ import { useNavigate } from "react-router-dom";
 import { Outlet } from 'react-router-dom';
 
 import './NavbarDesign.css';
+import TimesheetIcon from '@mui/icons-material/Topic';
+import EmployeeIcon from '@mui/icons-material/People';
+import EventIcon from '@mui/icons-material/Event';
+import BlogIcon from '@mui/icons-material/Celebration';
+import FAQIcon from '@mui/icons-material/QuestionAnswer';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const drawerWidth = 240;
@@ -123,6 +129,7 @@ export default function Navbar() {
             edge="start"
             sx={{
               marginRight: 5,
+              color: 'white',
               ...(open && { display: 'none' }),
             }}
           >
@@ -136,7 +143,7 @@ export default function Navbar() {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {theme.direction === 'rtl' ? <ChevronRightIcon sx={{color: 'white'}}/> : <ChevronLeftIcon sx={{color: 'white'}}/>}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -158,7 +165,11 @@ export default function Navbar() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon  sx={{color: 'white'}}/> : <MailIcon  sx={{color: 'white'}}/>}
+                  {text == 'Timesheet'? <TimesheetIcon  sx={{color: 'white'}}/> :<p></p>}
+                  {text == 'Employee'? <EmployeeIcon  sx={{color: 'white'}}/> :<p></p>}
+                  {text == 'Event'? <EventIcon  sx={{color: 'white'}}/> :<p></p>}
+                  {text == 'Blog'? <BlogIcon  sx={{color: 'white'}}/> :<p></p>}
+                  {text == 'Faq'? <FAQIcon  sx={{color: 'white'}}/> :<p></p>}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} to={`/${text.toLowerCase()}`} />
               </ListItemButton>
@@ -178,7 +189,7 @@ export default function Navbar() {
                 justifyContent: 'center',
               }}
             >
-              <InboxIcon sx={{color: 'white'}}/> 
+              <LogoutIcon sx={{color: 'white'}}/> 
             </ListItemIcon>
             <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} onClick={handleLogout}/>
           </ListItemButton>

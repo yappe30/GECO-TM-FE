@@ -14,14 +14,14 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Logo from '../../../images/logo.svg';
 import Wave from '../../../images/wave1.png';
-import Background from '../../../images/background.avif';
+import Background from '../../../images/background-image.jpg';
 import styled from 'styled-components';
 import './LoginDesign.css';
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/Auth';
 import Footer from '../../templates/Footer';
-
+import LoadingButton from '@mui/lab/LoadingButton';
 const BackgroundImage = styled.div`
     height: 648px;
     display: block;
@@ -54,15 +54,16 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         auth.loginWebuser(username)
+        setLoading('onLoading');
         e.preventDefault();
         if (validate()) {
             dispatch(onGetLogin(username, password));
             setTimeout(() => {
                 let userData = JSON.parse(sessionStorage.getItem('userData'));
-                console.log(userData.isActive);
-                if (userData.isActive == true) {
+                if (userData) {
                     navigate("/timesheet");
                 } else {
+                    setLoading('Submit');
                     toast.error('Invalid Username and Password', {
                         position: toast.POSITION.TOP_CENTER
                     });
@@ -142,9 +143,7 @@ const Login = () => {
                             />
                             <br />
                             <br />
-                            <Button type="submit" variant="contained" sx={{ marginTop: '10px', width: '100%' }}>
-                                {loading}
-                            </Button>
+                                {loading == 'Submit' ? <Button type="submit" variant="contained" sx={{ marginTop: '10px', width: '100%' }} >Submit</Button> : <LoadingButton loading variant="contained" sx={{ marginTop: '10px', width: '100%' }}  >Submit</LoadingButton>}
                         </form>
                     </div>
                 </Card>

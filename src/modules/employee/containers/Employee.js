@@ -54,7 +54,7 @@ const Employee = () => {
 
     return (
         <div style={{height: '100%'}}>
-        <Card sx={{padding:'10px', boxShadow: '0px 0px 10px 1px rgb(164, 144, 124)'}}>
+        <Card sx={{padding:'20px', boxShadow: '0px 0px 10px 5px rgb(31, 31, 34)'}}>
             <h3>EMPLOYEE DETAILS</h3>
             <br></br>
             <TextField
@@ -67,7 +67,7 @@ const Employee = () => {
                 <TableContainer sx={{ maxHeight: '100%'}}>
                     <Table aria-label="customized table">
                         <TableHead sx={{backgroundColor: 'rgb(164, 144, 124)'}}>
-                            <TableRow >
+                            <TableRow id="tableHeader">
                                 <TableCell>
                                     Employee ID
                                 </TableCell>
@@ -86,7 +86,7 @@ const Employee = () => {
                                 .map((row) => {
                                     return (
                                         <TableRow hover role="checkbox" tabIndex={-1} key={row.employee_id} className="TableRow">
-                                            <TableCell sx={{color: 'rgb(77, 76, 125)'}}>
+                                            <TableCell>
                                                 {row.employee_id}
                                             </TableCell>
                                             <TableCell>

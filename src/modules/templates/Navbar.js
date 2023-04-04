@@ -20,7 +20,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useNavigate } from "react-router-dom";
 import { Outlet } from 'react-router-dom';
-import Wave from '../../images/wave1.png';
+
 import './NavbarDesign.css';
 
 

@@ -8,21 +8,23 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import { onGEtEvent } from '../../action';
-
+import { onGetBlog } from '../../action';
 
 const Blog = () => {
     const dispatch = useDispatch();
 
-    const upcomingEvents = useSelector(state => state.upcomingEventData);
+    const blog = useSelector(state => state.blogData);
+
+    console.log(blog);
 
     useEffect(() => {
-        dispatch(onGEtEvent());
+        dispatch(onGetBlog());
     }, [])
     return (
         <>
+        <Card sx={{ padding: '20px', boxShadow: '0px 0px 10px 5px rgb(31, 31, 34)' }}>
         <div>
-            <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" style={{width: '70%', height: '70%', margin: 'auto'}}>
+            <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel" style={{width: '60%', height: '50%', margin: 'auto'}}>
                 <div className="carousel-inner">
                     <div className="carousel-item active" data-bs-interval="5000">
                         <img src={Durant} className="d-block w-100" alt="..." />
@@ -41,8 +43,8 @@ const Blog = () => {
             <div>
             <div style={{ marginTop: '20px' }}>
                 <div className="row">
-                    {(upcomingEvents.length > 0) ?
-                        upcomingEvents
+                    {(blog.length > 0) ?
+                        blog
                             .slice(0, 4)
                             .map((row, index) => {
                                 return (
@@ -52,20 +54,20 @@ const Blog = () => {
                                                 <CardMedia
                                                     component="img"
                                                     height="140"
-                                                    image={row.event_image}
+                                                    image={row.blog_image}
                                                     alt="green iguana"
                                                 />
                                                 <CardContent>
                                                     <Typography gutterBottom variant="h5" component="div">
-                                                        {row.event_name}
+                                                        {row.blog_name}
                                                     </Typography>
                                                     <Typography variant="body2" color="text.secondary">
-                                                      {row.event_description}
+                                                      {row.blog_description}
                                                     </Typography>
                                                 </CardContent>
                                             </CardActionArea>
                                             <CardActions>
-                                                <Button size="small" color="primary" onClick={(e) => { e.preventDefault(); window.open(row.event_link)}}>
+                                                <Button size="small" color="primary" onClick={(e) => { e.preventDefault(); window.open(row.blog_link)}}>
                                                     Read More
                                                 </Button>
                                             </CardActions>
@@ -79,7 +81,9 @@ const Blog = () => {
                 </div>
 
             </div>
+            
             </div>
+            </Card>
         </>
     );
 };

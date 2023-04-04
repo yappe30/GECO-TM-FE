@@ -58,6 +58,24 @@ export const onGEtEvent = () => {
       })
   }
 }
+export const onGetBlog = () => {
+  return (dispatch) => {
+      axios.get(gecoTMApi+"/GetBlog").then((res) => {
+          dispatch(
+              ((data) => {
+                return {
+                  type: actions.GET_BLOG_DATA,
+                  payload: {
+                    httpResponse: data,
+                  },
+                };
+              })(res.data)
+            );
+      }).catch((error) => {
+          console.log(error);
+      })
+  }
+}
 
 export const onGetLogin = (username, password) => {
   return (dispatch) => {

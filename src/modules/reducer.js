@@ -3,6 +3,7 @@ const initState = {
     employeeData: [],
     timesheetData: [],
     upcomingEventData: [],
+    blogData: [],
     userCreds: [],
     isActive: false,
 }
@@ -16,6 +17,8 @@ export const reducer = (state = initState, action) => {
             return { ...state, timesheetData: action.payload.httpResponse }
         case actions.GET_EVENT_DATA:
             return { ...state, upcomingEventData: action.payload.httpResponse }
+        case actions.GET_BLOG_DATA:
+            return { ...state, blogData: action.payload.httpResponse }
         case actions.GET_LOGIN_DATA:
             return { ...state, userCreds: [...action.payload], isActive: true }
         default:

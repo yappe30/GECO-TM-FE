@@ -15,6 +15,7 @@ import Modal from '@mui/material/Modal';
 import { Typography } from '@mui/material';
 import './TimesheetDesign.css';
 import Card from '@mui/material/Card';
+import format from 'date-fns/format';
 
 const style = {
     position: 'absolute',
@@ -89,123 +90,125 @@ const Timesheet = () => {
         setOpenModal(false);
     }
     return (
-        <>
-         <Card sx={{padding:'10px', boxShadow: '0px 0px 10px 1px rgb(164, 144, 124)'}}>
-            <h3>TIMESHEET DETAILS</h3>
-            <br></br>
-            <TextField
-                id="outlined-basic"
-                onChange={inputHandler}
-                variant="outlined"
-                label="Search"
-            />
-            <Paper sx={{ width: '100%', overflow: 'hidden', marginTop: '20px' }}>
-                <TableContainer sx={{ maxHeight: '100%'}} className="table01">
-                    <Table aria-label="customized table">
-                        <TableHead sx={{ backgroundColor: 'rgb(164, 144, 124)' }}>
-                            <TableRow >
-                                <TableCell>
-                                    Timesheet ID
-                                </TableCell>
-                                <TableCell>
-                                    Full Name
-                                </TableCell>
-                                <TableCell>
-                                    Project
-                                </TableCell>
-                                <TableCell>
-                                    Start Date
-                                </TableCell>
-                                <TableCell>
-                                    End Date
-                                </TableCell>
-                                <TableCell>
-                                    Status
-                                </TableCell>
-                                <TableCell>
-                                    Action
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {(timesheetData.length > 0) ?
-                                filteredData
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row) => {
-                                        return (
-                                            <TableRow hover role="checkbox" tabIndex={-1} key={row.employee_id} className="TableRow" >
-                                                <TableCell>
-                                                    {row.timesheet_id}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {row.last_name + " " + row.first_name + ", " + row.middle_name}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {row.project_name}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {row.startDate}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {row.endDate}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {row.status}
-                                                </TableCell>
-                                                <TableCell>
-                                                    <div className="dropdown dropstart">
-                                                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true" disabled={row.status == 'REJECT'? true: false}>
-                                                            Option
-                                                        </button>
-                                                        <ul className="dropdown-menu">
-                                                            <li><a className="dropdown-item" href="#" id="APPROVE" data-id={row.timesheet_id} onClick={hanldeOption}>APPROVE</a></li>
-                                                            <li><hr className="dropdown-divider" /></li>
-                                                            <li><a className="dropdown-item" href="#" id="REJECT" data-id={row.timesheet_id} onClick={hanldeOption}>REJECT</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    }) :
-                                <TableRow>
-                                    <TableCell colSpan="7">
-                                        Loading.........
+        <div style={{height: '100%'}}>
+            <Card sx={{ padding: '10px', boxShadow: '0px 0px 10px 5px rgb(31, 31, 34)' }}>
+                <h3>TIMESHEET DETAILS</h3>
+                <br></br>
+                <TextField
+                    id="outlined-basic"
+                    onChange={inputHandler}
+                    variant="outlined"
+                    label="Search"
+                />
+                <Paper sx={{ width: '100%', overflow: 'hidden', marginTop: '20px' }}>
+                    <TableContainer sx={{ maxHeight: '100%' }} className="table01">
+                        <Table aria-label="customized table">
+                            <TableHead id="tableHeader">
+                                <TableRow >
+                                    <TableCell>
+                                        Timesheet ID
+                                    </TableCell>
+                                    <TableCell>
+                                        Full Name
+                                    </TableCell>
+                                    <TableCell>
+                                        Project
+                                    </TableCell>
+                                    <TableCell>
+                                        Start Date
+                                    </TableCell>
+                                    <TableCell>
+                                        End Date
+                                    </TableCell>
+                                    <TableCell>
+                                        Status
+                                    </TableCell>
+                                    <TableCell>
+                                        Action
                                     </TableCell>
                                 </TableRow>
-                            }
-                        </TableBody>
-                    </Table>
-                    <TablePagination
-                        rowsPerPageOptions={[10, 25, 100]}
-                        component="div"
-                        count={filteredData.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </TableContainer>
+                            </TableHead>
+                            <TableBody>
+                                {(timesheetData.length > 0) ?
+                                    filteredData
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((row) => {
+                                            let startDate = new Date(row.startDate);
+                                            let endDate = new Date(row.endDate);
+                                            return (
+                                                <TableRow hover role="checkbox" tabIndex={-1} key={row.employee_id} className="TableRow" >
+                                                    <TableCell>
+                                                        {row.timesheet_id}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {row.last_name + " " + row.first_name + ", " + row.middle_name}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {row.project_name}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {format(startDate, 'LL/dd/yyyy')}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {format(endDate, 'LL/dd/yyyy')}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {row.status}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <div className="dropdown dropstart">
+                                                            <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true" disabled={row.status == 'REJECT' ? true : false} id="statusButton">
+                                                                Option
+                                                            </button>
+                                                            <ul className="dropdown-menu">
+                                                                <li><a className="dropdown-item" href="#" id="APPROVE" data-id={row.timesheet_id} onClick={hanldeOption}>APPROVE</a></li>
+                                                                <li><hr className="dropdown-divider" /></li>
+                                                                <li><a className="dropdown-item" href="#" id="REJECT" data-id={row.timesheet_id} onClick={hanldeOption}>REJECT</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
+                                        }) :
+                                    <TableRow>
+                                        <TableCell colSpan="7">
+                                            Loading.........
+                                        </TableCell>
+                                    </TableRow>
+                                }
+                            </TableBody>
+                        </Table>
+                        <TablePagination
+                            rowsPerPageOptions={[10, 25, 100]}
+                            component="div"
+                            count={filteredData.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </TableContainer>
 
-            </Paper>
+                </Paper>
 
-            <Modal
-                open={openModal}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Notification Message
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Are you sure you want to {statusOpt} {timeId}
-                    </Typography>
-                    <Button id="SubmitButton" variant="contained" onClick={updateTimesheet} sx={{float: 'right', backgroundColor: 'rgb(87, 155, 177)'}}>Confirm</Button>
-                </Box>
-            </Modal>
+                <Modal
+                    open={openModal}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box sx={style}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Notification Message
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            Are you sure you want to {statusOpt} {timeId}
+                        </Typography>
+                        <Button id="SubmitButton" variant="contained" onClick={updateTimesheet} sx={{ float: 'right', backgroundColor: 'rgb(87, 155, 177)' }}>Confirm</Button>
+                    </Box>
+                </Modal>
             </Card>
-        </>
+        </div>
     );
 };
 

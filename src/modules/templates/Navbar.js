@@ -20,6 +20,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useNavigate } from "react-router-dom";
 import { Outlet } from 'react-router-dom';
+
+import './NavbarDesign.css';
+
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -72,6 +76,7 @@ const AppBar = styled(MuiAppBar, {
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
+    backgroundColor: 'linear-gradient(90deg, rgba(11,8,66,1) 23%, rgba(210,15,6,1) 83%, rgba(3,11,59,1) 100%)',
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
@@ -91,6 +96,7 @@ export default function Navbar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -100,11 +106,16 @@ export default function Navbar() {
     setOpen(false);
   };
 
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate('/login');
+  }
+
   return (
     <Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar sx={{backgroundColor: 'rgb(141, 123, 104)' }}>
+        <Toolbar sx={{ backgroundColor: 'rgb(141, 123, 104)' }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -122,15 +133,15 @@ export default function Navbar() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open} sx={{backgroundColor: 'rgb(241, 222, 201)'}}>
+      <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List >
-          <h4 style={open? { textAlign: 'center'}: {display: 'none'}} >Dashboard</h4>
+        <List  >
+          <h4 style={open ? { textAlign: 'center' } : { display: 'none' }} >Dashboard</h4>
           {['Timesheet', 'Employee', 'Event', 'Blog', 'Faq'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block', }} onClick={() => { navigate(`/${text.toLowerCase()}`) }}>
               <ListItemButton
@@ -147,17 +158,36 @@ export default function Navbar() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <InboxIcon  sx={{color: 'white'}}/> : <MailIcon  sx={{color: 'white'}}/>}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} to={`/${text.toLowerCase()}`} />
-              </ListItemButton> 
+              </ListItemButton>
             </ListItem>
           ))}
+          <ListItemButton onClick={handleLogout}
+            sx={{
+              minHeight: 48,
+              justifyContent: open ? 'initial' : 'center',
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: open ? 3 : 'auto',
+                justifyContent: 'center',
+              }}
+            >
+              <InboxIcon sx={{color: 'white'}}/> 
+            </ListItemIcon>
+            <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} onClick={handleLogout}/>
+          </ListItemButton>
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, fontFamily: 'Oswald, sans-serif' }}>
         <DrawerHeader />
         <Outlet />
+       
       </Box>
     </Box>
   );

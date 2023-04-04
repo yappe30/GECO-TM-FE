@@ -2,6 +2,7 @@ import * as actions from './actionType'
 import axios from "axios";
 import { gecoTMApi } from "./utils/Services";
 
+
 export const onGetEmployee = () => {
     return (dispatch) => {
         axios.get(gecoTMApi+"/GetEmployee").then((res) => {
@@ -57,6 +58,42 @@ export const onGEtEvent = () => {
       })
   }
 }
+
+export const onGetLogin = (username, password) => {
+  return (dispatch) => {
+      axios.get(gecoTMApi+`/GetWebUser?username=${username}&password=${password}`).then((res) => {
+          dispatch(
+              ((data) => { 
+                //console.log(data.length);
+                if(data.length > 0){
+                  let userData = {
+                    "id": data[0].employee_id,
+                    "fullname": data[0].first_name +" "+ data[0].middle_name+" "+ data[0].last_name,
+                    "isActive": true
+                  }
+                  //console.log(userData);
+                    sessionStorage.setItem('userData',JSON.stringify(userData));
+
+                    return {
+                      type: actions.GET_LOGIN_DATA,
+                      payload: data,
+                    };
+                  
+                }
+
+              })(res.data)
+            );
+          // console.log(res.data);
+          //       dispatch({
+          //         type: actions.GET_LOGIN_DATA,
+          //         payload: res.data,
+          //       });
+      }).catch((error) => {
+          console.log(error);
+      })
+  }
+}
+
 
 export const onUpdateTimesheet = (id, status) => {
   return (dispatch) => {

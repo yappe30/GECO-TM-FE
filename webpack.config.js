@@ -1,70 +1,82 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'index.bundle.js',
-    publicPath: '/',
-  },
-  devServer: {
-    port: 3000,
-    historyApiFallback: true,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
+module.exports =() => {
+ console.log(process.env.REACT_APP_API_URL);
+  const value = {
+    "process.env.REACT_APP_NAME" : JSON.stringify(process.env.REACT_APP_NAME),
+    "process.env.REACT_APP_API_URL" : JSON.stringify(process.env.REACT_APP_API_URL)
+  }
+
+  return{
+    entry: './src/index.js',
+    output: {
+      path: path.join(__dirname, '/dist'),
+      filename: 'index.bundle.js',
+      publicPath: '/',
+    },
+    devServer: {
+      port: 3000,
+      historyApiFallback: true,
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+          },
         },
-      },
-      {
-        test: /\.css$/i,
-        // include: [path.resolve(__dirname, 'src')],
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg|avif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              query: {
-                name: 'src/images/[name].[ext]',
-              },
-            },
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              query: {
-                mozjpeg: {
-                  progressive: true,
-                },
-                gifsicle: {
-                  interlaced: true,
-                },
-                optipng: {
-                  optimizationLevel: 7,
+        {
+          test: /\.css$/i,
+          // include: [path.resolve(__dirname, 'src')],
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(jpe?g|png|gif|svg|avif)$/i,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                query: {
+                  name: 'src/images/[name].[ext]',
                 },
               },
             },
-          },
-        ],
-      },
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                query: {
+                  mozjpeg: {
+                    progressive: true,
+                  },
+                  gifsicle: {
+                    interlaced: true,
+                  },
+                  optipng: {
+                    optimizationLevel: 7,
+                  },
+                },
+              },
+            },
+          ],
+        },
+      ],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: 'src/index.html',
+      }),
+      new CopyWebpackPlugin({ patterns: [{ from: './web.config', to: '' }] }),
+      new webpack.DefinePlugin(value)
     ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-    }),
-  ],
-  performance: {
-    hints: false,
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000
+    performance: {
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+    }
   }
 };
